@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "emitDeclarationOnly": false,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "moduleDetection": "force"
+  },
+  "include": ["seed.ts"]
+}
