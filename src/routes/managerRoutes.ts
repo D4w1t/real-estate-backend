@@ -1,10 +1,15 @@
 import express from "express";
 
-import { getManager, createManager } from "../controllers/managerControllers.js";
+import {
+  getManager,
+  createManager,
+  updateManager,
+} from "../controllers/managerControllers.js";
 
 const router = express.Router();
 
 router.get("/:cognitoId", getManager);
 router.post("/", createManager);
+router.put("/:cognitoId", updateManager);
 
 export default router;
