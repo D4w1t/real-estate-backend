@@ -5,7 +5,7 @@ import {
   getProperties,
   getProperty,
   createProperty,
-} from "../controllers/PropertyControllers.js";
+} from "../controllers/propertyControllers.js";
 
 import { authMiddleware } from "../middleware/authMiddleware.js";
 

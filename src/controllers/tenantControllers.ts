@@ -153,7 +153,8 @@ export const addFavoriteProperty = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const { cognitoId, propertyId } = req.params;
+    const cognitoId = (req as any).user?.id;
+    const { propertyId } = req.params;
 
     if (typeof cognitoId !== "string") {
       res.status(400).json({ message: "Invalid or missing cognitoId" });
@@ -199,13 +200,24 @@ export const removeFavoriteProperty = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const { cognitoId, propertyId } = req.params;
+    const cognitoId = (req as any).user?.id;
+    const { propertyId } = req.params;
 
     if (typeof cognitoId !== "string") {
       res.status(400).json({ message: "Invalid or missing cognitoId" });
       return;
     }
     const propertyIdNumber = Number(propertyId);
+
+    const tenant = await prisma.tenant.findUnique({
+      where: { cognitoId },
+      select: { id: true },
+    });
+
+    if (!tenant) {
+      res.status(404).json({ message: "Tenant not found" });
+      return;
+    }
 
     const updatedTenant = await prisma.tenant.update({
       where: { cognitoId },
